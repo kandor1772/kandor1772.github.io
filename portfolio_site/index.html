@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tiberius Portfolio</title>
+  <meta name="description" content="Portfolio site for Tiberius, notebooks, and Larry.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Portfolio</p>
+        <h1>Tiberius, notebooks, and systems work.</h1>
+        <p class="lede">
+          This site is set up to showcase live chess work, research notebooks, and one more project lane for Larry.
+          It is simple to edit, strong enough to publish, and clean enough to drop into a Google Site or static host.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#tiberius">View Tiberius</a>
+          <a class="button secondary" href="#notebooks">View Notebooks</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <div class="stat">
+          <span class="stat-label">Designed for</span>
+          <strong>Fast publishing</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Structure</span>
+          <strong>Config-driven cards</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Current lane</span>
+          <strong>Tiberius native + web</strong>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      <section id="tiberius" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Project</p>
+          <h2>Tiberius</h2>
+          <p>
+            A chess system spanning Stockfish-backed overlay work, web play, mobile experiments, and a native on-device iPhone path.
+          </p>
+        </div>
+        <div id="tiberius-grid" class="card-grid"></div>
+      </section>
+
+      <section id="notebooks" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Research</p>
+          <h2>Notebooks</h2>
+          <p>
+            Add exported notebook links, rendered HTML, GitHub notebook URLs, or Google Drive shares here.
+          </p>
+        </div>
+        <div id="notebooks-grid" class="card-grid"></div>
+      </section>
+
+      <section id="larry" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Project</p>
+          <h2>Larry</h2>
+          <p>
+            This lane is ready for the next system. Drop the links into <code>config.js</code> and it will render automatically.
+          </p>
+        </div>
+        <div id="larry-grid" class="card-grid"></div>
+      </section>
+
+      <section class="section note-block">
+        <div class="section-heading">
+          <p class="eyebrow">Editing</p>
+          <h2>How to update this fast</h2>
+        </div>
+        <ol class="plain-list">
+          <li>Open <code>config.js</code>.</li>
+          <li>Replace placeholder links with your live URLs, Drive links, or exported notebook pages.</li>
+          <li>Change titles and summaries.</li>
+          <li>Open <code>index.html</code> in a browser or upload the folder as-is.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <script src="./config.js"></script>
+  <script>
+    function renderCards(targetId, items) {
+      const target = document.getElementById(targetId);
+      target.innerHTML = "";
+      items.forEach((item) => {
+        const article = document.createElement("article");
+        article.className = "card";
+        article.innerHTML = `
+          <p class="card-tag">${item.tag}</p>
+          <h3>${item.title}</h3>
+          <p class="card-body">${item.body}</p>
+          <div class="card-links">
+            ${item.links.map((link) => `<a href="${link.href}" target="_blank" rel="noreferrer">${link.label}</a>`).join("")}
+          </div>
+        `;
+        target.appendChild(article);
+      });
+    }
+
+    renderCards("tiberius-grid", portfolioConfig.tiberius);
+    renderCards("notebooks-grid", portfolioConfig.notebooks);
+    renderCards("larry-grid", portfolioConfig.larry);
+  </script>
+</body>
+</html>
